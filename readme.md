@@ -18,6 +18,8 @@ Base setup requires:
 - `CMakeLists.txt` that points to it, as well as allows for linking any other libraries and modules
 - `.clangd` file that makes sure your LSP can actually index everything correctly
 
+> Your LSP might struggle to understand all modules until you run `cmake` once and let it export the build information that it can then pick up.
+
 Then to build do:
 
 ```bash
