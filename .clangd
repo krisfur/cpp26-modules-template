@@ -1,18 +1,6 @@
 CompileFlags:
-  Add: 
-    - "-std=c++26"
-    - "-fmodules"
-    - "-Isrc" 
-    - "-fimplicit-modules"
-    - "-fimplicit-module-maps"
-  Remove: 
-    - "-fmodule-mapper=*"
-    - "-fmodule-file=*"
-    - "-fdeps-format=*"
+  CompilationDatabase: build
+  Remove:
     - "-fmodules-ts"
-
-Diagnostics:
-  Suppress: ["module_not_found", "module_file_mismatch"]
-
-Index:
-  Background: Build
+    - "-fmodule-mapper=*"
+    - "-fdeps-*"

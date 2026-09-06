@@ -6,8 +6,8 @@ Template for a C++26 project with modules.
 
 # Prerequisites
 
-- `Clang++` 19+
-- `CMake` 3.30+
+- `GCC` 16+ (tested with 16.1)
+- `CMake` 4.2.3+
 - `Ninja` 1.13+
 
 # Setting up a project
@@ -18,13 +18,15 @@ Base setup requires:
 - `CMakeLists.txt` that points to it, as well as allows for linking any other libraries and modules
 - `.clangd` file that makes sure your LSP can actually index everything correctly
 
-> Your LSP might struggle to understand all modules until you run `cmake` once and let it export the build information that it can then pick up.
+Use clangd 22+ with `--experimental-modules-support`. Configure the project first: `.clangd` reads `build/compile_commands.json` and removes GCC-only dependency-scanning flags. It does not suppress missing-module errors. If you use another build directory, update `CompilationDatabase` in `.clangd`.
+
+GCC remains the authoritative checker for GCC-only features. Reflection requires `-freflection` in addition to C++26 mode; upstream clangd cannot fully parse reflection yet.
 
 Then to build do:
 
 ```bash
 cmake -G Ninja -S . -B build \
-      -DCMAKE_CXX_COMPILER=clang++ \
+      -DCMAKE_CXX_COMPILER=g++ \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 cmake --build build
 ```
@@ -37,7 +39,7 @@ and run the resulting executable from the build folder:
 
 # Modules
 
-As of `C++26` module support exists if you use bleeding edge compilers and build tools. 
+Named modules are a C++20 feature; this template uses C++26 mode with GCC.
 
 In your module `.cppm` file simply do:
 
